@@ -280,3 +280,223 @@ function truncateString(str, num) {
 }
 
 truncateString("A-tisket a-tasket A green and yellow basket", 8);
+
+
+
+//Where art thou
+function whatIsInAName(collection, source) {
+  // What's in a name?
+  var arr = [];
+  // Only change code below this line
+
+const sourceKeys = Object.keys(source);
+
+for ( let item of collection ) {
+    if( item[Object.keys(source)] === source[sourceKeys] ){
+      arr.push(item)
+    }
+}
+
+return arr;
+
+}
+
+whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+
+
+
+// Write a function toWeirdCase (weirdcase in Ruby) that accepts a string, and returns the same string with all even indexed characters in each word upper cased, and all odd indexed characters in each word lower cased. The indexing just explained is zero based, so the zero-ith index is even, therefore that character should be upper cased.
+
+// The passed in string will only consist of alphabetical characters and spaces(' '). Spaces will only be present if there are multiple words. Words will be separated by a single space(' ').
+
+//Try a map or a double map, map inside a map, first separate word, then go letter by letter
+
+//But this is not a bad way to do it..
+function toWeirdCase(string){
+
+  const split = [...string];
+  
+  let count = 0;
+  
+  const result = [];
+  
+  split.forEach((letter) => {
+    if(letter !== ' ') {
+    count % 2 === 0 || count === 0 ? result.push(letter.toUpperCase()) : result.push(letter.toLowerCase());
+    count += 1
+   } else {
+     count = 0;
+     result.push(' ');
+   }
+  }) 
+  
+  return result.join('');
+  
+  }
+
+
+  // Pig Latin takes the first consonant (or consonant cluster) of an English word, moves it to the end of the word and suffixes an "ay".
+
+  // If a word begins with a vowel you just add "way" to the end.
+
+  // If a word does not contain a vowel, just add "ay" to the end.
+  //Needs a lot of refactoring
+
+  function translatePigLatin(str) {
+ 
+    const vowels = ["a", "e", "i", "o", "u"];
+    const splits = str.split("");
+  
+      for (let i = 0; i < vowels.length; i++){
+          if(str[0] === vowels[i]) {
+            return str + "way"
+          } 
+      }
+      
+    for(var i = 0; i < splits.length; i++) {
+          for(var j = 0; j < vowels.length; j++) {
+            if(splits[i] === vowels[j]) {
+              var consonant = splits.splice(0, i);
+              console.log(consonant, splits.join(""));
+              
+              return splits.join("") + consonant.join("") + "ay";
+            }
+          }
+       }
+       return splits.join("") + "ay"
+    }  
+   
+  translatePigLatin("schwartz");
+
+
+
+  // Search and Replace, preserves case sensitive of the replaced word
+
+  function myReplace(str, before, after) {
+
+    let arrayFromStr = str.split(' ');
+  
+    let newArrayFromStr = arrayFromStr.map( (word) => {
+      if( word === before && after[0] === after[0].toUpperCase() ) {
+          return word = after.charAt(0).toUpperCase() + after.substring(1);
+      } else if ( word === before && word[0] === word[0].toUpperCase() ) {
+          return word = after.charAt(0).toUpperCase() + after.substring(1);
+      } else if ( word === before ){
+          return word = after;
+      } else {
+          return word = word;
+      }
+      
+    });
+  
+    return newArrayFromStr.join(' ');
+    
+  }
+  
+  myReplace("He is Sleeping on the couch", "Sleeping", "sitting")
+
+  // DNA Pairing 
+  // The DNA strand is missing the pairing element. Take each character, get its pair, and return the results as a 2d array.
+
+  // Base pairs are a pair of AT and CG. Match the missing element to the provided character.
+  
+  // Return the provided character as the first element in each array.
+  
+  // For example, for the input GCG, return [["G", "C"], ["C","G"],["G", "C"]]
+  function pairElement(str) {
+
+    return str.split('').map(letter => letter === "A" ? ["A", "T"] 
+      : letter === "T" ? ["T", "A"] 
+      : letter === "C" ? ["C", "G"] : ["G", "C"]);
+    
+  }
+  
+  pairElement("GCG");
+
+
+
+// Find the missing letter in the passed letter range and return it.
+
+// If all letters are present in the range, return undefined.
+  function fearNotLetter(str) {
+
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    const strLen = str.length;
+    const chunk = alphabet.indexOf(str[0]);
+    
+      for(let i = chunk; i < chunk + strLen; i++){
+        if(!str.includes(alphabet[i])){
+          return alphabet[i];
+        }
+      }
+      return undefined;
+    }
+    
+    fearNotLetter("abce");
+  
+
+
+    // Write a function that takes two or more arrays and returns a new array of unique values in the order of the original provided arrays.
+    function uniteUnique(arr) {
+
+      const args = [...arguments];
+    
+      const unifiedArr = [].concat(...args);
+    
+      //for loop could work too
+      //Sets can only contain one of each element
+      return [...new Set(unifiedArr)]
+    
+      
+    }
+    
+    uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+
+
+    // Given a positive integer num, return the sum of all odd Fibonacci numbers that are less than or equal to num.
+    // if passed in 1, should return a number
+
+    function sumFibs(num) {
+
+      //Create a Fibonnaci sequence with the passed in num
+      if( num <= 1 ) {
+        return 1;
+      } else {
+        const startingArr = [1, 1];
+        let counter = 1;
+        while (counter < num) {
+          startingArr.push( startingArr[startingArr.length - 1] + startingArr[startingArr.length - 2] );
+          counter++
+      }
+      // Filter the sequence to include only odd numbers, smaller or equal than the given num.
+      // Finally return a sum of all those nums
+        return startingArr.filter( currentNum => currentNum % 2 !== 0 && currentNum <= num ).reduce((acc, num) => {
+          return acc + num
+        }, 0); 
+      }
+    }
+    
+    sumFibs(1000);
+
+
+    // Sum all prime numbers smaller or equal than a given number
+    function sumPrimes(num) {
+
+      const numsArray = [];
+      
+        // Add each num smaller or equal than num in an initial Array
+        for(let i = 1; i <= num; i++) {
+          numsArray.push(i);
+        }
+      
+        // Filter the Array to only include primes and then reduce it with a sum
+        const primes = numsArray.filter( num => {
+          for(let i = 2; i < num; i++)
+            if(num % i === 0) return false;
+          return num > 1;
+        }).reduce( (accumulator, currentValue) => accumulator + currentValue );
+        console.log(numsArray, primes)
+        return primes;
+      }
+      
+      sumPrimes(10);
