@@ -500,3 +500,104 @@ function toWeirdCase(string){
       }
       
       sumPrimes(10);
+
+
+
+      // Given the array arr, iterate through and remove each element starting from the first element (the 0 index) until the function func returns true when the iterated element is passed through it.
+      // Then return the rest of the array once the condition is satisfied, otherwise, arr should be returned as an empty array.
+      function dropElements(arr, func) {
+  
+        const cases = [...arr];
+        let i = 0;
+        while (!func(cases[i])) {
+          arr.shift();
+          i = i + 1;
+        }
+      
+        return arr;
+      }
+
+      dropElements([0, 1, 0, 1], function(n) {return n === 1; });
+
+    //  Also, a cleaner solution would be, figured out later:
+      function dropElements(arr, func) {
+        
+        while (!func(arr[0])) {
+          arr.shift();
+        }
+
+        return arr;
+      }
+
+    dropElements([1, 2, 3], function(n) {return n < 3; });
+
+
+    //Translate Binary
+    function binaryAgent(str) {
+
+      const splitMessage = str.split(" ");
+      const result = [];
+    
+    for ( let chunk of splitMessage ) {
+          result.push( parseInt(chunk, 2) );
+        }
+    
+        return result.map( char => String.fromCharCode( char ) ).join('');
+    
+    }
+    
+    binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+    
+    
+    // Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+    function truthCheck(collection, pre) {
+
+       const bools = collection.map( obj => obj.hasOwnProperty(pre) && !!obj[pre] )
+       
+        function isTrue(element) {
+          return element === true;
+        }
+      
+        return bools.every(isTrue);   
+      }
+      
+      truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex")
+
+
+
+      
+//Convert to Roman
+function convertToRoman(num) {
+
+  const numbers = [1000, 500, 100, 50, 10, 5, 1];
+  const romanNumerals = ['M', 'D', 'C', 'L', 'X', 'V', 'I'];
+
+  const romanAccumulation = [];
+  let regularAccumulation = num;
+
+  const accumulate = () => {
+      for(let i = 0; i < numbers.length; i++) {
+          if( regularAccumulation >= numbers[i] ) {
+              
+              romanAccumulation.push(romanNumerals[i]);
+              regularAccumulation -= parseInt(numbers[i]);
+              console.log(`${regularAccumulation} is bigger than ${numbers[i]}, omanAccumulation is ${romanAccumulation}`)
+              console.log(regularAccumulation)
+                break;
+          }
+      
+          //After this first loop check the amuount that we have in romanNumerals
+      }
+  }
+
+  while(regularAccumulation > 0) {
+      accumulate()
+  }
+  
+
+return num;
+}
+
+convertToRoman(45);
+// X,X,X,X,V
+// Now, there should be something hapenning when there's 4 of something.
