@@ -549,7 +549,28 @@ function toWeirdCase(string){
     binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
     
     
+
     // Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+
+    function truthCheck(collection, pre) {
+
+      let result;
+    
+      for(let i = 0; i < collection.length; i++) {
+        if(pre in collection[i] && collection[i][pre]) {
+          result = true
+        } else {
+          result = false
+          break;
+        }
+      }
+    
+      return result;
+    }
+    
+    truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
+
+    //Different solution...
     function truthCheck(collection, pre) {
 
        const bools = collection.map( obj => obj.hasOwnProperty(pre) && !!obj[pre] )
@@ -566,13 +587,14 @@ function toWeirdCase(string){
 
 
       
+      
 //Convert to Roman
 function convertToRoman(num) {
 
   const numbers = [1000, 500, 100, 50, 10, 5, 1];
   const romanNumerals = ['M', 'D', 'C', 'L', 'X', 'V', 'I'];
 
-  const romanAccumulation = [];
+  let romanAccumulation = [];
   let regularAccumulation = num;
 
   const accumulate = () => {
@@ -586,18 +608,49 @@ function convertToRoman(num) {
                 break;
           }
       
-          //After this first loop check the amuount that we have in romanNumerals
+          //After this first loop check the amount that we have in romanNumerals
       }
   }
 
   while(regularAccumulation > 0) {
       accumulate()
   }
+
+   //First check if romanAccumulation has repeated values
+    const s = new Set(romanAccumulation);
+    const hasRepeatedValue = romanAccumulation.length >= 4 && s.length !== romanAccumulation;
+    console.log('hasrepeatedvalue', hasRepeatedValue);
+
+    const repeatedValues = [];
+   
+
+    if(hasRepeatedValue) {
+        
+        for(let i = 0; i < romanAccumulation.length; i++) {
+           if( romanAccumulation[i] === romanAccumulation [i + 1]) {
+              repeatedValues.push(romanAccumulation[i]);
+           
+              if( repeatedValues.length === 3 ) {
+                //replace the 3 repeated values by a single numeral, ina previous position in the romanNumerals Array:
+                const romanNumeralIndex = romanNumerals.indexOf(repeatedValues[0]);
+                
+                const romanAccumulationIndex = romanAccumulation.indexOf(repeatedValues[0]);
+                //months.splice(4, 1, 'May');
+                // replaces 1 element at index 4
+                romanAccumulation.splice(romanAccumulationIndex + 1, 3, romanNumerals[romanNumeralIndex - 1]);
+                // romanAccumulation.push(romanNumerals[romanNumeralIndex - 1])
+              }
+            }
+        };
+        //Clean up the romanAccumulation Arr from repeated values
+        romanAccumulation = [...new Set(romanAccumulation)]
+
+    }
+  
+console.log('repeatedValues', repeatedValues, 'romanAccumulation', romanAccumulation)
   
 
-return num;
+return romanAccumulation.join("");
 }
 
-convertToRoman(45);
-// X,X,X,X,V
-// Now, there should be something hapenning when there's 4 of something.
+convertToRoman(4);
