@@ -554,6 +554,16 @@ function toWeirdCase(string){
 
     function truthCheck(collection, pre) {
 
+      const isTruthy = (currentValue) => pre in currentValue && currentValue[pre];
+      return collection.every(isTruthy);
+    
+  }
+    
+    truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
+
+    //Another solution with a loop
+    function truthCheck(collection, pre) {
+
       let result;
     
       for(let i = 0; i < collection.length; i++) {
@@ -570,23 +580,7 @@ function toWeirdCase(string){
     
     truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
 
-    //Different solution...
-    function truthCheck(collection, pre) {
-
-       const bools = collection.map( obj => obj.hasOwnProperty(pre) && !!obj[pre] )
-       
-        function isTrue(element) {
-          return element === true;
-        }
-      
-        return bools.every(isTrue);   
-      }
-      
-      truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex")
-
-
-
-      
+  
       
 //Convert to Roman
 function convertToRoman(num) {
