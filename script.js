@@ -561,6 +561,16 @@ function toWeirdCase(string){
     
     truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
 
+    //Even more concise
+    function truthCheck(collection, pre) {
+
+      return collection.every( el => el[pre] );
+      
+    }
+      
+    truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
+
+
     //Another solution with a loop
     function truthCheck(collection, pre) {
 
@@ -580,6 +590,8 @@ function toWeirdCase(string){
     
     truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
 
+
+    
   
       
 //Convert to Roman
