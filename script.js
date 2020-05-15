@@ -618,13 +618,17 @@ function toWeirdCase(string){
 /////////////////////////////////////////////////////////
 
 // Argument Optional -> Create a function that sums two arguments together. If only one argument is provided, then return a function that expects one argument and returns the sum.
-function addTogether() {
+function addTogether(...args) {
+
+  // If we need to use the arguments Object, is better to turn it into an actual Array for performance reasons.
+  // Since "arguments" is a reserved keyword, we can use the spreadk operator with "args" for example.
+  // We could also have done something like "const args = Array.from(arguments)"
 
   const argumentsNum = arguments.length;
   const isNum = arg => typeof arg === "number";
 
-  if( isNum(arguments[0]) && isNum(arguments[1]) ) {
-    return arguments[0] + arguments[1];
+  if( isNum(args[0]) && isNum(args[1]) ) {
+    return args[0] + args[1];
   }  
   else if( argumentsNum === 1 && isNum(arguments[0]) ) {
      const sumTwoAnd = num => isNum(num) ? arguments[0] + num : undefined;
