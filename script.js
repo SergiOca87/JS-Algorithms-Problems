@@ -665,6 +665,7 @@ smallestCommons([1,5]);
 /////////////////////////////////////////////////////////
 
 //Convert to Roman
+//Can this be refactored to not have 2 different loops (algorithm patterns, check notes)
 function convertToRoman(num) {
 
   const numbers = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
