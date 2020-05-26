@@ -687,3 +687,33 @@ return romanValue;
 convertToRoman(83);
 
 /////////////////////////////////////////////////////////
+
+// Valid Us number - Easier with regex
+// Many tests not passing
+false
+function telephoneCheck(str) {
+
+  const arr = [...str];
+  const onlyNums = arr.filter((char) => !isNaN(parseInt(char)) );
+  const validLength = onlyNums.length;
+
+  if(arr[0] === "-") {
+    return false
+  }
+
+  let isAValidNum = validLength === 10 || validLength === 11 && parseInt(onlyNums[0]) === 1 ? true : false;
+
+  if(isAValidNum) {
+
+  for(let i = 0; i < arr.length; i++) {
+    if( isNaN(parseInt(arr[i]))  && arr[i] !== "-" && arr[i] !== " " && arr[i] !== "(" && arr[i] !== ")" ) {
+        return false
+    } 
+  }
+    return true;
+  } 
+    return false
+  
+}
+
+telephoneCheck("-1 5uuumerg55-555-5555");
