@@ -821,4 +821,13 @@ function isValidWalk(walk) {
 
   titleCase('THE WIND IN THE WILLOWS', 'The In'), //The Wind in the Willows
 
+  /////////////////////////////////////////////////////////
+  // Filter from first array the elements from the second Array
+
+  function arrayDiff(a, b) {
   
+	return b.length ? a.filter(( aItem ) => !b.includes( aItem )) : a;
+  
+  }
+
+  arrayDiff([1,2,3], [1,2]), //[3],
