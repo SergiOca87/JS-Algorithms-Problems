@@ -422,10 +422,10 @@ function pairElement(str) {
 			letter === 'A'
 				? ['A', 'T']
 				: letter === 'T'
-				? ['T', 'A']
-				: letter === 'C'
-				? ['C', 'G']
-				: ['G', 'C']
+					? ['T', 'A']
+					: letter === 'C'
+						? ['C', 'G']
+						: ['G', 'C']
 		);
 }
 
@@ -480,7 +480,7 @@ function sumFibs(num) {
 		while (counter < num) {
 			startingArr.push(
 				startingArr[startingArr.length - 1] +
-					startingArr[startingArr.length - 2]
+				startingArr[startingArr.length - 2]
 			);
 			counter++;
 		}
@@ -728,7 +728,7 @@ function telephoneCheck(str) {
 
 	let isAValidNum =
 		validLength === 10 ||
-		(validLength === 11 && parseInt(onlyNums[0]) === 1)
+			(validLength === 11 && parseInt(onlyNums[0]) === 1)
 			? true
 			: false;
 
@@ -762,7 +762,7 @@ var moveZeros = function (arr) {
 	}
 	return [...newArr.filter((item) => item !== 0), ...zeroes];
 };
-(moveZeros([1,2,0,1,0,1,0,3,0,1]);
+(moveZeros([1, 2, 0, 1, 0, 1, 0, 3, 0, 1]);
 
 
 /////////////////////////////////////////////////
@@ -772,62 +772,76 @@ var moveZeros = function (arr) {
 
 function isValidWalk(walk) {
 	const coordinates = {
-	  x: 0,
-	  y: 0
+		x: 0,
+		y: 0
 	}
 	let minutes = 0;
-	for( const direction of walk ) {
-	  minutes++;
-	  if( direction === 'n' ) {
-		coordinates.y++;
-	  } else if( direction === 's' ) {
-		coordinates.y--;
-	  } else if( direction === 'e' ) {
-		coordinates.x++;
-	  } else if( direction === 'w' ){
-		coordinates.x--;
-	  }
+	for (const direction of walk) {
+		minutes++;
+		if (direction === 'n') {
+			coordinates.y++;
+		} else if (direction === 's') {
+			coordinates.y--;
+		} else if (direction === 'e') {
+			coordinates.x++;
+		} else if (direction === 'w') {
+			coordinates.x--;
+		}
 	}
 	return coordinates.x === 0 && coordinates.y === 0 && minutes === 10 ? true : false;
-  }
+}
 
-  isValidWalk(['n','s','n','s','n','s','n','s','n','s'] // True;
-  isValidWalk(['n','n','n','s','n','s','n','s','n','s']) // False
+isValidWalk(['n', 's', 'n', 's', 'n', 's', 'n', 's', 'n', 's'] // True;
+  isValidWalk(['n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's']) // False
 
 
   ////////////////////////////////////////////////////
   // Capitalizes string except for provided exceptions
   function titleCase(title, minorWords) {
-  
-	const titleArr = title.split(' ');
-	const minorWordsArr = minorWords ? minorWords.split(' ') : undefined;
-  
-	if( minorWordsArr ) {
-	   const newArr = titleArr.map((word) => {
-		   if( minorWordsArr.some(minorWordsArrWord => minorWordsArrWord.toLowerCase() === word.toLowerCase()) ) {
-			   return word.toLowerCase();
-		   } else {
-			   return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-		   }
-	   });
-  
-	  const newStr = newArr.join(' ');
-	  return newStr.charAt(0).toUpperCase() + newStr.slice(1);
-  
-	} else {
-	  return titleArr.map( word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() ).join(' ');
+
+		const titleArr = title.split(' ');
+		const minorWordsArr = minorWords ? minorWords.split(' ') : undefined;
+
+		if (minorWordsArr) {
+			const newArr = titleArr.map((word) => {
+				if (minorWordsArr.some(minorWordsArrWord => minorWordsArrWord.toLowerCase() === word.toLowerCase())) {
+					return word.toLowerCase();
+				} else {
+					return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+				}
+			});
+
+			const newStr = newArr.join(' ');
+			return newStr.charAt(0).toUpperCase() + newStr.slice(1);
+
+		} else {
+			return titleArr.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+		}
 	}
-  }
 
   titleCase('THE WIND IN THE WILLOWS', 'The In'), //The Wind in the Willows
 
-  /////////////////////////////////////////////////////////
-  // Filter from first array the elements from the second Array
+	/////////////////////////////////////////////////////////
+	// Filter from first array the elements from the second Array
 
-  function arrayDiff(a, b) {
-  
-	return b.length ? a.filter(( aItem ) => !b.includes( aItem )) : a;
-  
-  }
+	function arrayDiff(a, b) {
 
-  arrayDiff([1,2,3], [1,2]), //[3],
+		return b.length ? a.filter((aItem) => !b.includes(aItem)) : a;
+
+	}
+
+  arrayDiff([1, 2, 3], [1, 2]), //[3],
+
+
+
+	////////////////////////////////////////////////////////////////////
+	// Write a function that takes in a string of one or more words, and returns the same string, but with all five or more letter words reversed
+	function spinWords(string) {
+
+		const arrayFromString = string.split(' ');
+		const returnOrReverseWord = str => str.length >= 5 ? [...str].reverse().join('') : str;
+
+		return arrayFromString.length === 1 ? returnOrReverseWord(arrayFromString[0]) : arrayFromString.map(word => returnOrReverseWord(word)).join(' ');
+	}
+
+//(spinWords("Hey fellow warriors"), "Hey wollef sroirraw");
